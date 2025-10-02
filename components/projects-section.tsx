@@ -108,12 +108,12 @@ const projects: Project[] = [
     id: 7,
     title: "Whaloo",
     category: "both",
-    tags: ["Figma", "UI/UX", "Frontend", "Mobile Design", "Education"],
+    tags: ["Flutter", "Dart", "Android", "Figma", "UI/UX", "Mobile Design", "Education"],
     description:
-      "A mobile app prototype for managing study materials. Features include tracking deadlines, organizing class schedules, and creating to-do lists. Designed in Figma with front-end development implementation.",
+      "A mobile app built with Flutter and Dart for managing study materials on Android. Features include tracking deadlines, organizing class schedules, and creating to-do lists. Designed in Figma with front-end development implementation.",
     role: "UI/UX Designer & Front-End Developer – built mobile prototypes and implemented UI screens for academic management.",
     learning:
-      "Learned how to design education-focused productivity apps, integrate scheduling features, and transition prototypes into front-end code.",
+      "Learned how to design education-focused productivity apps, integrate scheduling features, and transition prototypes into front-end code using Flutter.",
     date: "Feb 2025 - Apr 2025",
     image: "/projects/whaloo-logo.png",
     prototypeImage: "/projects/whaloo-prototype.png",
@@ -125,12 +125,12 @@ const projects: Project[] = [
     id: 8,
     title: "HanapBuhay",
     category: "both",
-    tags: ["Figma", "UI/UX", "Web Design", "Marketplace"],
+    tags: ["React", "Next.js", "TypeScript", "Figma", "UI/UX", "Web Design", "Marketplace"],
     description:
-      "A web-based local freelance marketplace that connects clients with skilled informal workers for everyday services like carpentry, tutoring, and babysitting. Includes job posting, worker profiles, chat, and ratings for trust-building.",
+      "A web-based local freelance marketplace built with React, Next.js, and TypeScript that connects clients with skilled informal workers for everyday services like carpentry, tutoring, and babysitting. Includes job posting, worker profiles, chat, and ratings for trust-building.",
     role: "UI/UX Designer & Front-End Developer – designed marketplace workflows, client-worker interactions, and implemented front-end components for core platform features.",
     learning:
-      "Gained experience in marketplace platform design, building two-sided user flows, and applying front-end implementation to transform prototypes into functional components.",
+      "Gained experience in marketplace platform design, building two-sided user flows, and applying front-end implementation with React and Next.js to transform prototypes into functional components.",
     date: "Aug 2025 - Oct 2025",
     image: "/projects/hanapbuhay-logo.png",
     prototypeImage: "/projects/hanapbuhay-prototype.png",
