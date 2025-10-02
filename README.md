@@ -14,7 +14,7 @@ Each project card includes:
 
 📸 Preview
 👉 Live Portfolio Website
- (replace with your Vercel/GitHub Pages link)
+https://anaangeli.vercel.app/
 
 🧑‍💻 About Me
 I’m Ana Angeli S. Edejer, a Computer Engineering student passionate about:
