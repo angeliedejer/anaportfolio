@@ -86,7 +86,7 @@ export function HeroSection() {
                   asChild
                 >
                   <a
-                    href="https://drive.google.com/file/d/1qaFAO7JrVkjRpYz5FV_9aC7l_Wj5M0DO/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1LJ3GcAJUhqnsDADpp9yadKpRRMIo3BZj/view?usp=drivesdk"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
