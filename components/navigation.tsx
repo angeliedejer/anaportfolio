@@ -9,14 +9,27 @@ import { motion, AnimatePresence } from "framer-motion"
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+    let lastY = window.scrollY
+    const threshold = 6
+    const onScroll = () => {
+      const y = window.scrollY
+      setIsScrolled(y > 50)
+      const diff = y - lastY
+      if (Math.abs(diff) > threshold) {
+        // Hide when scrolling down and not at the very top; show on scroll up
+        const shouldHide = diff > 0 && y > 100 && !isMobileMenuOpen
+        setIsHidden(shouldHide)
+        lastY = y
+      }
+      // Always show when near the top
+      if (y < 50) setIsHidden(false)
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [isMobileMenuOpen])
 
   const navLinks = [
     { href: "#home", label: "Home" },
@@ -62,8 +75,8 @@ export function Navigation() {
         isScrolled ? "bg-card/95 backdrop-blur-md border-b border-border" : "bg-transparent"
       }`}
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      animate={{ y: isHidden ? -120 : 0 }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">

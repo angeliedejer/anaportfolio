@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Download, Mail } from "lucide-react"
 import { motion } from "framer-motion"
+import LiquidEther from "./LiquidEther"
 
 export function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -15,16 +16,26 @@ export function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 w-full h-full">
-        <iframe
-          src="https://my.spline.design/blue-zS7nwVIeMmhUG9indOA9y3eB/"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-          className="w-full h-full"
+        <LiquidEther
+          colors={["#2F7AE5", "#3E88EF", "#439CEF"]}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
         />
       </div>
 
-      <div className="absolute inset-0 bg-background/40 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-background/40 backdrop-blur-[2px] pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
