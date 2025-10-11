@@ -62,7 +62,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              UI/UX Designer
+              Aspiring UI/UX Designer | Front-end Developer
             </motion.p>
             <motion.p
               className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed"
