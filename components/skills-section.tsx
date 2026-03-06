@@ -4,40 +4,91 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 import {
   Code2,
   Palette,
   Cpu,
-  FileCode,
-  Figma,
-  Database,
   Lightbulb,
   MessageSquare,
   Target,
   Zap,
   Clock,
+  Wrench,
 } from "lucide-react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-type SkillCategory = "design" | "software" | "hardware"
+type SkillCategory = "all" | "languages" | "frameworks" | "hardware" | "tools" | "design"
+
+const allSkillsList = [
+  { name: "C", logo: "/techstacklogos/C_Language_Logo.png" },
+  { name: "C#", logo: "/techstacklogos/Logo_C_sharp.png" },
+  { name: "Dart", logo: "/techstacklogos/Dart_logo.png" },
+  { name: "JavaScript", logo: "/techstacklogos/JavaScript-Symbol.png" },
+  { name: "TypeScript", logo: "/techstacklogos/Typescript_logo.png" },
+  { name: "HTML", logo: "/techstacklogos/HTML5_logo.png" },
+  { name: "CSS", logo: "/techstacklogos/css-logo.png" },
+  { name: ".NET", logo: "/techstacklogos/NET_logo.png" },
+  { name: "Node.js", logo: "/techstacklogos/Node.js_logo.png" },
+  { name: "Flutter", logo: "/techstacklogos/flutter_logo.png" },
+  { name: "Next.js", logo: "/techstacklogos/next_js_logo.png" },
+  { name: "React", logo: "/techstacklogos/React-logo.png" },
+  { name: "Arduino", logo: "/techstacklogos/arduino-logo.png" },
+  { name: "SolidWorks", logo: "/techstacklogos/SolidWorks-Logo.png" },
+  { name: "Cisco Packet Tracer", logo: "/techstacklogos/cisco-packet-tracer.png" },
+  { name: "Eagle", logo: "/techstacklogos/eagle-logo.jpg" },
+  { name: "TinkerCAD", logo: "/techstacklogos/logo-tinkercad.png" },
+  { name: "Git/GitHub", logo: "/techstacklogos/github-logo.png" },
+  { name: "VS Code", logo: "/techstacklogos/vscode-logo.png" },
+  { name: "Android Studio", logo: "/techstacklogos/Android_Studio_Logo.png" },
+  { name: "Word", logo: "/techstacklogos/microsoft-word-logo.png" },
+  { name: "PowerPoint", logo: "/techstacklogos/Microsoft_Office_PowerPoint_logo.png" },
+  { name: "Excel", logo: "/techstacklogos/Microsoft_Office_Excel_Logo_.png" },
+  { name: "Figma", logo: "/techstacklogos/Figma-Logo.png" },
+  { name: "Canva", logo: "/techstacklogos/Canva-Logo.png" },
+]
 
 const skills = {
-  design: [
-    { name: "UI/UX Design", icon: Palette },
-    { name: "Figma", icon: Figma },
-    { name: "Graphic Design", icon: Palette },
-    { name: "Prototyping", icon: Zap },
+  all: allSkillsList,
+  languages: [
+    { name: "C", logo: "/techstacklogos/C_Language_Logo.png" },
+    { name: "C#", logo: "/techstacklogos/Logo_C_sharp.png" },
+    { name: "Dart", logo: "/techstacklogos/Dart_logo.png" },
+    { name: "JavaScript", logo: "/techstacklogos/JavaScript-Symbol.png" },
+    { name: "TypeScript", logo: "/techstacklogos/Typescript_logo.png" },
+    { name: "HTML", logo: "/techstacklogos/HTML5_logo.png" },
+    { name: "CSS", logo: "/techstacklogos/css-logo.png" },
   ],
-  software: [
-    { name: "C, C#, Dart", icon: Code2 },
-    { name: "JavaScript, TypeScript", icon: FileCode },
-    { name: "HTML & CSS", icon: FileCode },
-    { name: "Full-Stack Development", icon: Database },
+  frameworks: [
+    { name: ".NET", logo: "/techstacklogos/NET_logo.png" },
+    { name: "Node.js", logo: "/techstacklogos/Node.js_logo.png" },
+    { name: "Flutter", logo: "/techstacklogos/flutter_logo.png" },
+    { name: "Next.js", logo: "/techstacklogos/next_js_logo.png" },
+    { name: "React", logo: "/techstacklogos/React-logo.png" },
   ],
   hardware: [
-    { name: "Arduino", icon: Cpu },
-    { name: "Circuit Design", icon: Cpu },
-    { name: "Digital Logic", icon: Cpu },
-    { name: "Computer Hardware Assembly", icon: Cpu },
+    { name: "Arduino", logo: "/techstacklogos/arduino-logo.png" },
+    { name: "SolidWorks", logo: "/techstacklogos/SolidWorks-Logo.png" },
+    { name: "Cisco Packet Tracer", logo: "/techstacklogos/cisco-packet-tracer.png" },
+    { name: "Eagle", logo: "/techstacklogos/eagle-logo.jpg" },
+    { name: "TinkerCAD", logo: "/techstacklogos/logo-tinkercad.png" },
+  ],
+  tools: [
+    { name: "Git/GitHub", logo: "/techstacklogos/github-logo.png" },
+    { name: "VS Code", logo: "/techstacklogos/vscode-logo.png" },
+    { name: "Android Studio", logo: "/techstacklogos/Android_Studio_Logo.png" },
+    { name: "Word", logo: "/techstacklogos/microsoft-word-logo.png" },
+    { name: "PowerPoint", logo: "/techstacklogos/Microsoft_Office_PowerPoint_logo.png" },
+    { name: "Excel", logo: "/techstacklogos/Microsoft_Office_Excel_Logo_.png" },
+  ],
+  design: [
+    { name: "Figma", logo: "/techstacklogos/Figma-Logo.png" },
+    { name: "Canva", logo: "/techstacklogos/Canva-Logo.png" },
   ],
 }
 
@@ -72,7 +123,7 @@ const itemVariants = {
 }
 
 export function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState<SkillCategory>("design")
+  const [activeCategory, setActiveCategory] = useState<SkillCategory>("all")
 
   return (
     <section id="skills" className="py-20 relative">
@@ -86,31 +137,41 @@ export function SkillsSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Skills & Expertise</h2>
           <p className="text-muted max-w-2xl mx-auto">
-            A diverse skill set spanning design, development, and hardware engineering
+            A diverse skill set spanning languages, frameworks, hardware, tools, and design
           </p>
         </motion.div>
 
         <div className="flex justify-center gap-4 mb-12 flex-wrap">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
-              variant={activeCategory === "design" ? "default" : "outline"}
-              onClick={() => setActiveCategory("design")}
-              className={activeCategory === "design" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"}
+              variant={activeCategory === "all" ? "default" : "outline"}
+              onClick={() => setActiveCategory("all")}
+              className={activeCategory === "all" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"}
             >
-              <Palette className="mr-2 h-4 w-4" />
-              Design
+              <Zap className="mr-2 h-4 w-4" />
+              All
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
-              variant={activeCategory === "software" ? "default" : "outline"}
-              onClick={() => setActiveCategory("software")}
+              variant={activeCategory === "languages" ? "default" : "outline"}
+              onClick={() => setActiveCategory("languages")}
+              className={activeCategory === "languages" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"}
+            >
+              <Code2 className="mr-2 h-4 w-4" />
+              Languages
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              variant={activeCategory === "frameworks" ? "default" : "outline"}
+              onClick={() => setActiveCategory("frameworks")}
               className={
-                activeCategory === "software" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"
+                activeCategory === "frameworks" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"
               }
             >
               <Code2 className="mr-2 h-4 w-4" />
-              Software
+              Frameworks
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -125,6 +186,28 @@ export function SkillsSection() {
               Hardware
             </Button>
           </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              variant={activeCategory === "tools" ? "default" : "outline"}
+              onClick={() => setActiveCategory("tools")}
+              className={
+                activeCategory === "tools" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"
+              }
+            >
+              <Wrench className="mr-2 h-4 w-4" />
+              Tools
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+              variant={activeCategory === "design" ? "default" : "outline"}
+              onClick={() => setActiveCategory("design")}
+              className={activeCategory === "design" ? "bg-primary hover:bg-secondary" : "border-border hover:bg-card"}
+            >
+              <Palette className="mr-2 h-4 w-4" />
+              Design
+            </Button>
+          </motion.div>
         </div>
 
         <AnimatePresence mode="wait">
@@ -134,24 +217,40 @@ export function SkillsSection() {
             initial="hidden"
             animate="visible"
             exit={{ opacity: 0, y: -20 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
+            className="flex flex-wrap justify-center gap-4 mb-16"
           >
-            {skills[activeCategory].map((skill, index) => {
-              const Icon = skill.icon
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <Card className="p-6 bg-card border-border hover:border-primary transition-all duration-300 h-full">
-                    <Icon className="h-8 w-8 text-primary mb-3" />
-                    <h3 className="font-semibold text-sm">{skill.name}</h3>
-                  </Card>
-                </motion.div>
-              )
-            })}
+            <TooltipProvider>
+              {skills[activeCategory].map((skill, index) => {
+                return (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <motion.div
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.08, y: -5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="w-32 h-32"
+                      >
+                        <Card className="p-6 bg-card border-border hover:border-primary transition-all duration-300 h-full w-full flex flex-col items-center justify-center gap-3">
+                          <div className="relative w-16 h-16 flex items-center justify-center flex-shrink-0">
+                            <Image
+                              src={skill.logo}
+                              alt={skill.name}
+                              width={64}
+                              height={64}
+                              className="object-contain"
+                            />
+                          </div>
+                          <h3 className="font-semibold text-sm text-center line-clamp-2">{skill.name}</h3>
+                        </Card>
+                      </motion.div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{skill.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )
+              })}
+            </TooltipProvider>
           </motion.div>
         </AnimatePresence>
 
